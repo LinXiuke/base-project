@@ -1,0 +1,37 @@
+spring:
+    application:
+            name: base-project
+    profiles:
+        active: dev
+    jpa:
+            database: MYSQL
+            database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+            hibernate:
+                ddl-auto: none
+                naming:
+                    implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                    physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+            open-in-view: false
+            properties:
+                #主键生成策略
+                hibernate.id.new_generator_mappings: true
+                #二级缓存 默认为true
+                hibernate.cache.use_second_level_cache: false
+                #缓存
+                hibernate.cache.use_query_cache: false
+                #统计信息
+                hibernate.generate_statistics: true
+            show-sql: false
+
+server:
+    port: 8001
+    #url前缀
+    context-path: /base
+    session:
+        cookie:
+            #开启httpOnly
+            http-only: true
+
+security:
+    basic:
+        enabled: false

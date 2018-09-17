@@ -1,0 +1,38 @@
+spring:
+    profiles:
+        active: dev
+        include: swagger
+    jackson:
+        serialization.indent_output: true
+    datasource:
+        #多数据源  主要数据库
+        primary:
+            type: com.zaxxer.hikari.HikariDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://localhost:3306/base1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+            username: root
+            password:
+            test-on-borrow: true
+            validation-interval: 30
+            validation-query: SELECT 1
+            #数据库连接池
+            hikari:
+                data-source-properties:
+                    cachePrepStmts: true
+                    prepStmtCacheSize: 50
+                    prepStmtCacheSqlLimit: 1024
+                    useServerPrepStmts: true
+        secondary:
+            type: com.zaxxer.hikari.HikariDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://localhost:3306/base2?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+            username: root
+            password:
+            test-on-borrow: true
+            validation-interval: 30
+            validation-query: SELECT 1
+            hikari:
+                data-source-properties:
+                    cachePrepStmts: true
+                    prepStmtCacheSize: 50
+                    prepStmtCacheSqlLimit: 1024
