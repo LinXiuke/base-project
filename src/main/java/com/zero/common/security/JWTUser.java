@@ -1,4 +1,4 @@
-package com.zero.common.security.jwt;
+package com.zero.common.security;
 
 
 import lombok.Builder;
@@ -8,11 +8,13 @@ import java.security.Principal;
 
 @Data
 @Builder
-public class JwtUser implements Principal {
+public class JWTUser implements Principal {
 
     private Long userId;
 
     private String login;
+
+    private String openId;
 
     @Override
     public String getName() {

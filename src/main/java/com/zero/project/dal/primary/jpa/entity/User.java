@@ -19,6 +19,8 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User extends BaseEntity {
 
+    private String openId;
+
     private String username;
 
     private String password;
