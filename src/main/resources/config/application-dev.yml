@@ -5,7 +5,7 @@ spring:
     jackson:
         serialization.indent_output: true
     datasource:
-        #多数据源  主要数据库
+        # 多数据源  主要数据库
         primary:
             type: com.zaxxer.hikari.HikariDataSource
             driver-class-name: com.mysql.jdbc.Driver
@@ -15,7 +15,7 @@ spring:
             test-on-borrow: true
             validation-interval: 30
             validation-query: SELECT 1
-            #数据库连接池
+            # 数据库连接池
             hikari:
                 data-source-properties:
                     cachePrepStmts: true
@@ -42,11 +42,12 @@ spring:
         port: 6379
         password:
         pool:
-            #最大空闲数
+            # 最大空闲数
             max-idle: 20
             min-idle: 10
-            #连接池最大数据库连接数
+            # 连接池最大数据库连接数（使用负值表示没有限制）
             max-active: 50
+            # 连接池最大阻塞等待时间（使用负值表示没有限制）
             max-wait: -1
 
 application:
