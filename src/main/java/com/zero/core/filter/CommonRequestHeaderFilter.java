@@ -14,7 +14,7 @@ import java.util.Enumeration;
 /**
  * @Description: 请求头过滤器
  */
-public class CommonRequestDataFilter implements Filter {
+public class CommonRequestHeaderFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
