@@ -5,7 +5,6 @@ import com.zero.project.dal.primary.jpa.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
@@ -19,7 +18,7 @@ import java.util.Date;
  * @Date: 2018/9/18
  */
 
-@Slf4j
+//@Slf4j
 public class TokenProvider {
 
     private String secretKey;

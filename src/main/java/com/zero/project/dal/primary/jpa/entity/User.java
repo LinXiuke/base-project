@@ -9,8 +9,6 @@ import javax.persistence.Table;
 
 /**
  * @Description:
- * @Author: LXK
- * @Date: 2018/9/17
  */
 
 @Data

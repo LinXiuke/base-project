@@ -33,9 +33,9 @@ public class ApplicationProperties {
 
                 private String secret;
 
-                private long tokenValidityInSeconds = 1800;
+                private long tokenValidityInSeconds;
 
-                private long tokenValidityInSecondsForRememberMe = 2592000;
+                private long tokenValidityInSecondsForRememberMe;
 
             }
         }
@@ -44,11 +44,11 @@ public class ApplicationProperties {
     @Data
     public static class Async {
 
-        private int corePoolSize = 2;
+        private int corePoolSize;
 
-        private int maxPoolSize = 50;
+        private int maxPoolSize;
 
-        private int queueCapacity = 10000;
+        private int queueCapacity;
 
     }
 
@@ -63,16 +63,18 @@ public class ApplicationProperties {
         @Data
         public static class HttpClientTimeout {
 
-            private int socket_timeout = 10000;
-            private int connect_timeout = 10000;
+            private int socket_timeout;
+
+            private int connect_timeout;
 
         }
 
         @Data
         public static class HttpClientPool {
 
-            private int max_total = 500;
-            private int max_per_route = 100;
+            private int max_total;
+
+            private int max_per_route;
 
         }
     }

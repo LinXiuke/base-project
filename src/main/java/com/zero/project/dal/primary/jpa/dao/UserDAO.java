@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @Description:
- * @Author: LXK
- * @Date: 2018/9/17
  */
 
 @Repository

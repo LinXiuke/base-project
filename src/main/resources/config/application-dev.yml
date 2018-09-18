@@ -45,7 +45,7 @@ application:
     security:
         authentication:
             jwt:
-                secret: kwanyin
+                secret: biubiubiu
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 295200
     cors:
