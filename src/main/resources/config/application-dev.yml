@@ -36,6 +36,18 @@ spring:
                     cachePrepStmts: true
                     prepStmtCacheSize: 50
                     prepStmtCacheSqlLimit: 1024
+    redis:
+        database: 0
+        host: 127.0.0.1
+        port: 6379
+        password:
+        pool:
+            #最大空闲数
+            max-idle: 20
+            min-idle: 10
+            #连接池最大数据库连接数
+            max-active: 50
+            max-wait: -1
 
 application:
     async:
