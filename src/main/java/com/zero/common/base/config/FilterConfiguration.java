@@ -1,6 +1,6 @@
 package com.zero.common.base.config;
 
-import com.zero.core.filter.CommonRequestHeaderFilter;
+import com.zero.common.core.filter.CommonRequestHeaderFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;

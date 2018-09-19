@@ -1,6 +1,6 @@
 package com.zero.project.dal.primary.jpa.entity;
 
-import com.zero.common.entity.BaseEntity;
+import com.zero.common.base.model.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

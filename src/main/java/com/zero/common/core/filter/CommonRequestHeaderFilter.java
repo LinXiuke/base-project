@@ -1,8 +1,8 @@
-package com.zero.core.filter;
+package com.zero.common.core.filter;
 
 
-import com.zero.core.CommonRequestHeader;
-import com.zero.core.CommonRequestHeaderHolder;
+import com.zero.common.core.CommonRequestHeader;
+import com.zero.common.core.CommonRequestHeaderHolder;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 

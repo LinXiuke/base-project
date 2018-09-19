@@ -1,4 +1,4 @@
-package com.zero.common.entity;
+package com.zero.common.base.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,14 +11,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Description:
- * @Author: LXK
- * @Date: 2018/9/17
+ * @Description: 实体类父类
  */
 
 @Data
 @EqualsAndHashCode(callSuper = false)
+//实体类继承
 @MappedSuperclass
+//createTime updateTime 更新
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 

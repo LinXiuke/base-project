@@ -1,4 +1,4 @@
-package com.zero.core;
+package com.zero.common.core;
 
 import lombok.Data;
 
