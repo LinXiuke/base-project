@@ -12,12 +12,12 @@ public class JWTUser implements Principal {
 
     private Long userId;
 
-    private String login;
+    private String username;
 
     private String openId;
 
     @Override
     public String getName() {
-        return login;
+        return username;
     }
 }

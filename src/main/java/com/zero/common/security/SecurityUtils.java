@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public final class SecurityUtils {
 
-    public static JWTUser getJwtUser() {
+    public static JWTUser getCurrentUser() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {

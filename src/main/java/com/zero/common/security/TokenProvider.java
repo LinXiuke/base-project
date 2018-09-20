@@ -1,12 +1,12 @@
 package com.zero.common.security;
 
 import com.zero.common.base.config.ApplicationProperties;
-import com.zero.project.dal.primary.jpa.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -16,14 +16,14 @@ import java.util.Date;
  * @Description:
  */
 
-//@Slf4j
+@Component
 public class TokenProvider {
 
     private String secretKey;
 
-    private long tokenValidityInMilliseconds;
+    private long tokenValidity;
 
-    private long tokenValidityInMillisecondsForRememberMe;
+    private long tokenValidityRememberMe;
 
     private final ApplicationProperties applicationProperties;
 
@@ -35,10 +35,10 @@ public class TokenProvider {
     public void init() {
         this.secretKey = applicationProperties.getSecurity().getAuthentication().getJwt().getSecret();
 
-        this.tokenValidityInMilliseconds = 1000
-                * applicationProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
-        this.tokenValidityInMillisecondsForRememberMe = 1000 * applicationProperties.getSecurity().getAuthentication()
-                .getJwt().getTokenValidityInSecondsForRememberMe();
+        this.tokenValidity = 1000
+                * applicationProperties.getSecurity().getAuthentication().getJwt().getTokenValidity();
+        this.tokenValidityRememberMe = 1000 * applicationProperties.getSecurity().getAuthentication()
+                .getJwt().getTokenValidityRememberMe();
     }
 
     /**
@@ -46,22 +46,17 @@ public class TokenProvider {
      */
     public String createToken(Authentication authentication, Boolean rememberMe) {
         long now = (new Date()).getTime();
-        Date validity;
-        if (rememberMe) {
-            //一个月
-            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe);
-        } else {
-            //一天
-            validity = new Date(now + this.tokenValidityInMilliseconds);
-        }
+        Date validity = rememberMe ? new Date(now + this.tokenValidityRememberMe) : new Date(now + this.tokenValidity);
 
-        User user = (User) authentication.getDetails();
-        Long userId = user.getId();
-        String openId = user.getOpenId();
+        AuthDetails jwtUser = (AuthDetails) authentication.getDetails();
+        Long userId = jwtUser.getUserId();
+        String openId = jwtUser.getOpenId();
+        String username = jwtUser.getUsername();
 
         return Jwts.builder().setSubject(authentication.getName())
-                .claim("userId", userId)
+                .claim("userId", userId.toString())
                 .claim("openId", openId)
+                .claim("username", username)
                 //加密方式和密钥
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setExpiration(validity)
@@ -77,15 +72,16 @@ public class TokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
-        JWTUser JWTUser = null;
+        JWTUser jwtUser = null;
 
         String openId = claims.get("openId", String.class);
-        Long userId = claims.get("userId", Long.class);
-        if (!StringUtils.isEmpty(openId) && openId.trim() != ""  && null != userId) {
-            JWTUser = JWTUser.builder().login(claims.getSubject()).openId(openId).userId(userId).build();
+        Long userId = Long.valueOf(claims.get("userId").toString());
+        String username = claims.get("username", String.class);
+        if (!StringUtils.isEmpty(openId) && !openId.trim().equals("") && null != userId) {
+            jwtUser = JWTUser.builder().username(username).openId(openId).userId(userId).build();
         }
 
-        return new UsernamePasswordAuthenticationToken(JWTUser, token, null);
+        return new UsernamePasswordAuthenticationToken(jwtUser, token, null);
     }
 
 
