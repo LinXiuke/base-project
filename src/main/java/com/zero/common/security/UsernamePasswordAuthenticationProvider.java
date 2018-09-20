@@ -40,7 +40,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 		User user = userDAO.findByUsername((String)token.getPrincipal());
 
-		AuthDetails details = new AuthDetails();
+		AuthUser details = new AuthUser();
 		details.setOpenId(user.getOpenId());
 		details.setUserId(user.getId());
 		details.setUsername((String)token.getPrincipal());

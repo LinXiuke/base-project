@@ -48,16 +48,15 @@ public class TokenProvider {
         long now = (new Date()).getTime();
         Date validity = rememberMe ? new Date(now + this.tokenValidityRememberMe) : new Date(now + this.tokenValidity);
 
-        AuthDetails jwtUser = (AuthDetails) authentication.getDetails();
-        Long userId = jwtUser.getUserId();
-        String openId = jwtUser.getOpenId();
-        String username = jwtUser.getUsername();
+        AuthUser authUser = (AuthUser) authentication.getDetails();
+        Long userId = authUser.getUserId();
+        String openId = authUser.getOpenId();
+        String username = authUser.getUsername();
 
         return Jwts.builder().setSubject(authentication.getName())
                 .claim("userId", userId.toString())
                 .claim("openId", openId)
                 .claim("username", username)
-                //加密方式和密钥
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setExpiration(validity)
                 .compact();
@@ -73,12 +72,14 @@ public class TokenProvider {
                 .getBody();
 
         JWTUser jwtUser = null;
+//        AuthUser authUser = new AuthUser();
 
         String openId = claims.get("openId", String.class);
         Long userId = Long.valueOf(claims.get("userId").toString());
         String username = claims.get("username", String.class);
         if (!StringUtils.isEmpty(openId) && !openId.trim().equals("") && null != userId) {
             jwtUser = JWTUser.builder().username(username).openId(openId).userId(userId).build();
+//            authUser.setUsername(username);
         }
 
         return new UsernamePasswordAuthenticationToken(jwtUser, token, null);
