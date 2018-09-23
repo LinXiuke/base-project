@@ -19,21 +19,22 @@ import org.springframework.util.Assert;
 @Service
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider, InitializingBean, MessageSourceAware {
 
-	protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
-	
-	@Autowired
-	private UserDAO userDAO;
-	
+    protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
-	@Override
-	public void setMessageSource(MessageSource messageSource) {
-		 this.messages = new MessageSourceAccessor(messageSource);
-	}
+    @Autowired
+    private UserDAO userDAO;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		 Assert.notNull(this.messages, "A message source must be set");
-	}
+
+    @Override
+    public void setMessageSource(MessageSource messageSource) {
+        this.messages = new MessageSourceAccessor(messageSource);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.notNull(this.messages, "A message source must be set");
+    }
+
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {

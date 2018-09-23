@@ -65,7 +65,7 @@ public class TokenProvider {
     /**
      * 获取
      */
-    public Authentication getToken(String token) {
+    public Authentication getAuthentication(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
@@ -77,7 +77,7 @@ public class TokenProvider {
         String openId = claims.get("openId", String.class);
         Long userId = Long.valueOf(claims.get("userId").toString());
         String username = claims.get("username", String.class);
-        if (!StringUtils.isEmpty(openId) && !openId.trim().equals("") && null != userId) {
+        if (!StringUtils.isEmpty(openId) && !openId.trim().equals("")) {
             jwtUser = JWTUser.builder().username(username).openId(openId).userId(userId).build();
 //            authUser.setUsername(username);
         }

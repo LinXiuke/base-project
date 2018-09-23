@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,7 +32,7 @@ public class UserManager {
     /**
      * 登录
      */
-    public String signIn(SignInForm form) {
+    public Object signIn(SignInForm form) {
 
         User user = userDAO.findByUsername(form.getUsername());
         if (user == null) {
@@ -53,9 +52,10 @@ public class UserManager {
         } catch (Exception e) {
             throw new CommonException(e.getMessage());
         }
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        AuthUser authUser = (AuthUser) authentication.getDetails();
         String token = tokenProvider.createToken(authentication, form.getRememberMe());
-
+//        response.setHeader(JWTConfigurer.AUTHORIZATION, token);
         return token;
     }
 }

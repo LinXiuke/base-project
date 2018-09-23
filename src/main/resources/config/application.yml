@@ -27,10 +27,6 @@ server:
     port: 8001
     #url前缀
     context-path: /base
-    session:
-        cookie:
-            #开启httpOnly
-            http-only: true
 
 security:
     basic:

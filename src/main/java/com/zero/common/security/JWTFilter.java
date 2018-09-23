@@ -30,10 +30,10 @@ public class JWTFilter extends GenericFilterBean {
             throws IOException, ServletException {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String jwt = resolveToken(httpServletRequest);
-        if (StringUtils.hasText(jwt)) {
-            if (tokenProvider.validateToken(jwt)) {
-                Authentication authentication = tokenProvider.getToken(jwt);
+        String token = getTokenForHeader(httpServletRequest);
+        if (StringUtils.hasText(token)) {
+            if (tokenProvider.validateToken(token)) {
+                Authentication authentication = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
@@ -42,7 +42,7 @@ public class JWTFilter extends GenericFilterBean {
 
     }
 
-    private String resolveToken(HttpServletRequest request){
+    private String getTokenForHeader(HttpServletRequest request){
         //获取header里的token
         String token = request.getHeader(JWTConfigurer.AUTHORIZATION);
         if (StringUtils.hasText(token)) {

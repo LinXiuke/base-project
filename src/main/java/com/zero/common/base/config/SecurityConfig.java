@@ -1,9 +1,6 @@
 package com.zero.common.base.config;
 
-import com.zero.common.security.AuthAccessDeniedHandler;
-import com.zero.common.security.JWTConfigurer;
-import com.zero.common.security.LoginAuthenticationEntryPoint;
-import com.zero.common.security.TokenProvider;
+import com.zero.common.security.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @Description:
@@ -32,16 +30,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.tokenProvider = tokenProvider;
     }
 
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
-    }
 
 
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "base/**")
+                .antMatchers("/base/user/signIn")
         ;
     }
 
@@ -58,8 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/base/user/signIn").permitAll()
-                .anyRequest().authenticated()
+                //  yml配置的context-path: /base  不能加上
+                .antMatchers("/user/signIn").permitAll()
+                .antMatchers("/**").authenticated()
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
@@ -70,9 +66,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-        return new SecurityEvaluationContextExtension();
+
+    private JWTConfigurer securityConfigurerAdapter() {
+        return new JWTConfigurer(tokenProvider);
     }
 
     @Bean

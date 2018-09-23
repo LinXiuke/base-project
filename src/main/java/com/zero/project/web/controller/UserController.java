@@ -1,14 +1,11 @@
 package com.zero.project.web.controller;
 
-import com.zero.common.base.config.ApplicationProperties;
 import com.zero.common.base.result.CommonException;
 import com.zero.common.base.result.CommonResult;
 import com.zero.common.base.result.CommonResultTemplate;
-import com.zero.common.security.JWTUser;
 import com.zero.common.security.SecurityUtils;
 import com.zero.project.biz.manager.UserManager;
 import com.zero.project.web.form.SignInForm;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

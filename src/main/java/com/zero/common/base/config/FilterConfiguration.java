@@ -22,7 +22,7 @@ public class FilterConfiguration {
         //是否自动注册 false 取消Filter的自动注册
         registration.setEnabled(true);
         //过滤器顺序
-        registration.setOrder(3);
+        registration.setOrder(1);
         return registration;
     }
 

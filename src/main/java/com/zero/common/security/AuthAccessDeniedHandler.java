@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @Description:
+ * @Description: ajax请求信息处理
  */
 public class AuthAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -23,10 +23,10 @@ public class AuthAccessDeniedHandler implements AccessDeniedHandler {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        CommonResult envelop = new CommonResult("Prohibition of access");
-        envelop.setCode("403");
+        CommonResult result = new CommonResult("Prohibition of access");
+        result.setCode("403");
         PrintWriter out = response.getWriter();
-        out.print(JSON.toJSONString(envelop));
+        out.print(JSON.toJSONString(result));
         out.flush();
         out.close();
     }
