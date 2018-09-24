@@ -11,6 +11,8 @@ public enum  CommonErrorCode {
 
     SUCCESS("0000", "success"),
     SERVER_ERROR("9999", "system error"),
+
+    TOKEN_LOSE_EFFICACY("403", "token失效"),
     ;
 
     private String code;

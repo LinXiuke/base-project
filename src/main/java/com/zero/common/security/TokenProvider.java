@@ -1,15 +1,14 @@
 package com.zero.common.security;
 
-import com.zero.common.base.config.ApplicationProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import java.util.Date;
 
 /**
@@ -19,34 +18,23 @@ import java.util.Date;
 @Component
 public class TokenProvider {
 
+    @Value("${jwt.secret_key}")
     private String secretKey;
 
+    @Value("${jwt.token_validity}")
     private long tokenValidity;
 
+    @Value("${jwt.token_validity_remember_me}")
     private long tokenValidityRememberMe;
 
-    private final ApplicationProperties applicationProperties;
-
-    public TokenProvider(ApplicationProperties applicationProperties) {
-        this.applicationProperties = applicationProperties;
-    }
-
-    @PostConstruct
-    public void init() {
-        this.secretKey = applicationProperties.getSecurity().getAuthentication().getJwt().getSecret();
-
-        this.tokenValidity = 1000
-                * applicationProperties.getSecurity().getAuthentication().getJwt().getTokenValidity();
-        this.tokenValidityRememberMe = 1000 * applicationProperties.getSecurity().getAuthentication()
-                .getJwt().getTokenValidityRememberMe();
-    }
 
     /**
      * 生成token
      */
     public String createToken(Authentication authentication, Boolean rememberMe) {
         long now = (new Date()).getTime();
-        Date validity = rememberMe ? new Date(now + this.tokenValidityRememberMe) : new Date(now + this.tokenValidity);
+        Date validity = rememberMe ? new Date(now + this.tokenValidityRememberMe * 1000) : new Date(now + this
+                .tokenValidity * 1000);
 
         AuthUser authUser = (AuthUser) authentication.getDetails();
         Long userId = authUser.getUserId();

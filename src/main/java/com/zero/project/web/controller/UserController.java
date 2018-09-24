@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -24,13 +25,13 @@ public class UserController {
     private UserManager userManager;
 
     @PostMapping("/signIn")
-    public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result) {
+    public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse response) {
         return CommonResultTemplate.excute(() ->{
             if (result.hasErrors()) {
                 throw new CommonException(result.getAllErrors().get(0).getDefaultMessage());
             }
 
-            return userManager.signIn(form);
+            return userManager.signIn(form, response);
         });
     }
 

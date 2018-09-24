@@ -50,10 +50,8 @@ spring:
             # 连接池最大阻塞等待时间（使用负值表示没有限制）
             max-wait: -1
 
-application:
-    security:
-        authentication:
-            jwt:
-                secret: biubiubiu
-                token-validity: 86400
-                token-validity-remember-me: 295200
+
+jwt:
+    secret_key: biubiubiu
+    token_validity: 86400
+    token_validity_remember_me: 295200

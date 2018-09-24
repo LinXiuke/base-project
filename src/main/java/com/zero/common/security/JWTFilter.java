@@ -34,6 +34,9 @@ public class JWTFilter extends GenericFilterBean {
         if (StringUtils.hasText(token)) {
             if (tokenProvider.validateToken(token)) {
                 Authentication authentication = tokenProvider.getAuthentication(token);
+//                if (authentication.getPrincipal() instanceof JWTUser) {
+//                    System.out.println(((JWTUser)authentication.getPrincipal()).getUsername());
+//                }
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

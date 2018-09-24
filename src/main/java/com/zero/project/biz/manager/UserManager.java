@@ -1,6 +1,8 @@
 package com.zero.project.biz.manager;
 
 import com.zero.common.base.result.CommonException;
+import com.zero.common.security.AuthUser;
+import com.zero.common.security.JWTConfigurer;
 import com.zero.common.security.TokenProvider;
 import com.zero.project.dal.primary.jpa.dao.UserDAO;
 import com.zero.project.dal.primary.jpa.entity.User;
@@ -9,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Description: 用户登录退出
@@ -32,7 +37,7 @@ public class UserManager {
     /**
      * 登录
      */
-    public Object signIn(SignInForm form) {
+    public Object signIn(SignInForm form, HttpServletResponse response) {
 
         User user = userDAO.findByUsername(form.getUsername());
         if (user == null) {
@@ -53,7 +58,6 @@ public class UserManager {
             throw new CommonException(e.getMessage());
         }
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        AuthUser authUser = (AuthUser) authentication.getDetails();
         String token = tokenProvider.createToken(authentication, form.getRememberMe());
 //        response.setHeader(JWTConfigurer.AUTHORIZATION, token);
         return token;
