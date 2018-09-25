@@ -35,7 +35,7 @@ public class CommonResult<T> implements Serializable {
         this.message = message;
     }
 
-    public CommonResult(CommonErrorCode errorCode) {
+    public CommonResult(ErrorCode errorCode) {
         this.code = errorCode.getCode();
         this.message = errorCode.getMessage();
     }

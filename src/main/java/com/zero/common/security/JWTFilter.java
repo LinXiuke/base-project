@@ -1,5 +1,7 @@
 package com.zero.common.security;
 
+import com.zero.common.base.result.ErrorCode;
+import com.zero.common.base.result.CommonException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -39,6 +41,9 @@ public class JWTFilter extends GenericFilterBean {
 //                }
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
+        } else {
+            throw new CommonException(ErrorCode.TOKEN_LOSE_EFFICACY
+            );
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

@@ -9,13 +9,13 @@ import lombok.Data;
 @Data
 public class CommonException extends RuntimeException {
 
-    private CommonErrorCode errorCode;
+    private ErrorCode errorCode;
 
     public CommonException(String message) {
         super(message);
     }
 
-    public CommonException(CommonErrorCode errorCode) {
+    public CommonException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }

@@ -19,7 +19,7 @@ public class CommonResultTemplate {
                 result = new CommonResult(e.getMessage());
             }
         } catch (Exception e) {
-            result = new CommonResult(CommonErrorCode.SERVER_ERROR);
+            result = new CommonResult(ErrorCode.SERVER_ERROR);
 
         }
 
