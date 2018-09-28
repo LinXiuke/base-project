@@ -5,7 +5,7 @@ package com.zero.common.base.result;
  */
 public class CommonResultTemplate {
 
-    public static CommonResult excute(Callback callback) {
+    public static CommonResult execute(Callback callback) {
         CommonResult result;
 
         try {
@@ -20,13 +20,12 @@ public class CommonResultTemplate {
             }
         } catch (Exception e) {
             result = new CommonResult(ErrorCode.SERVER_ERROR);
-
         }
 
         return result;
     }
 
-    public interface Callback<T> {
-        T execute();
+    public interface Callback {
+        Object execute();
     }
 }

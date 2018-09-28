@@ -9,10 +9,10 @@ import java.io.Serializable;
  */
 
 @Data
-public class CommonResult<T> implements Serializable {
+public class CommonResult implements Serializable {
 
     private String code;
-    private T data;
+    private Object data;
     private String message;
 
     public CommonResult() {
@@ -20,7 +20,7 @@ public class CommonResult<T> implements Serializable {
         this.message = "";
     }
 
-    public CommonResult(T data) {
+    public CommonResult(Object data) {
         this();
         this.data = data;
     }

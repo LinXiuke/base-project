@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping("/signIn")
     public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse response) {
-        return CommonResultTemplate.excute(() ->{
+        return CommonResultTemplate.execute(() ->{
             if (result.hasErrors()) {
                 throw new CommonException(result.getAllErrors().get(0).getDefaultMessage());
             }
@@ -37,6 +37,6 @@ public class UserController {
 
     @GetMapping("/userInfo")
     public CommonResult getUserInfo() {
-        return CommonResultTemplate.excute(SecurityUtils::getCurrentUser);
+        return CommonResultTemplate.execute(SecurityUtils::getCurrentUser);
     }
 }

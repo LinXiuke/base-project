@@ -1,7 +1,10 @@
 package com.zero.common.core.errors;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class FieldErrorVM implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,18 +19,6 @@ public class FieldErrorVM implements Serializable {
         this.objectName = dto;
         this.field = field;
         this.message = message;
-    }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
 }

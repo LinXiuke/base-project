@@ -41,9 +41,6 @@ public class JWTFilter extends GenericFilterBean {
 //                }
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } else {
-            throw new CommonException(ErrorCode.TOKEN_LOSE_EFFICACY
-            );
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

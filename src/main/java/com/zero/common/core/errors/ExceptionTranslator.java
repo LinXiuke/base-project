@@ -20,22 +20,20 @@ import java.util.Objects;
 
 /**
  * @Description: 全局异常处理
- * @Author: LXK
- * @Date: 2018/9/25
  */
 @ControllerAdvice
 public class ExceptionTranslator {
 
+    @ResponseBody
     @ExceptionHandler(ConcurrencyFailureException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ResponseBody
     public ErrorVM processConcurencyError(ConcurrencyFailureException ex) {
-        return new ErrorVM(ErrorConstants.ERR_CONCURRENCY_FAILURE);
+        return new ErrorVM("409 Conflict");
     }
 
+    @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
     public ErrorVM processValidationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
@@ -43,23 +41,9 @@ public class ExceptionTranslator {
         return processFieldErrors(fieldErrors);
     }
 
-
-    @ExceptionHandler(CommonException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ResponseBody
-    public ErrorVM processInvalidTokenException(CommonException e) {
-        return new ErrorVM(e.getErrorCode().getCode(), e.getMessage());
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ResponseBody
-    public ErrorVM processAccessDeniedException(AccessDeniedException e) {
-        return new ErrorVM(ErrorConstants.ERR_ACCESS_DENIED, e.getMessage());
-    }
-
     private ErrorVM processFieldErrors(List<FieldError> fieldErrors) {
-        ErrorVM dto = Objects.nonNull(fieldErrors.get(0)) ? new ErrorVM(ErrorConstants.ERR_VALIDATION, fieldErrors.get(0).getDefaultMessage()) : new ErrorVM(ErrorConstants.ERR_VALIDATION);
+        ErrorVM dto = Objects.nonNull(fieldErrors.get(0)) ? new ErrorVM("error validation", fieldErrors.get(0)
+                .getDefaultMessage()) : new ErrorVM("error.validation");
 
         for (FieldError fieldError : fieldErrors) {
             dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
@@ -68,11 +52,26 @@ public class ExceptionTranslator {
         return dto;
     }
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+
     @ResponseBody
+    @ExceptionHandler(CommonException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorVM processInvalidTokenException(CommonException e) {
+        return new ErrorVM(e.getErrorCode().getCode(), e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorVM processAccessDeniedException(AccessDeniedException e) {
+        return new ErrorVM("403 Forbidden");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ErrorVM processMethodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
-        return new ErrorVM(ErrorConstants.ERR_METHOD_NOT_SUPPORTED, exception.getMessage());
+        return new ErrorVM("405 Method Not Allowed");
     }
 
 
@@ -86,7 +85,7 @@ public class ExceptionTranslator {
             errorVM = new ErrorVM("error." + responseStatus.value().value(), responseStatus.reason());
         } else {
             builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-            errorVM = new ErrorVM(ErrorConstants.ERR_INTERNAL_SERVER_ERROR, "Internal server error");
+            errorVM = new ErrorVM("500 Internal Server Error");
         }
         return builder.body(errorVM);
     }
