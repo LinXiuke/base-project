@@ -14,6 +14,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @Description:
@@ -36,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/base/user/signIn")
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/swagger-ui/index.html")
         ;
+
     }
 
     @Override
@@ -55,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //  yml配置的context-path: /base  不能加上
                 .antMatchers("/user/signIn").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/swagger-resources/configuration/ui").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .exceptionHandling()

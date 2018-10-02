@@ -6,6 +6,8 @@ import com.zero.common.base.result.CommonResultTemplate;
 import com.zero.common.security.SecurityUtils;
 import com.zero.project.biz.manager.UserManager;
 import com.zero.project.web.form.SignInForm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import javax.validation.Valid;
  * @Description:
  */
 
+@Api(value = "用户接口")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -24,6 +27,7 @@ public class UserController {
     @Autowired
     private UserManager userManager;
 
+    @ApiOperation(value = "登录")
     @PostMapping("/signIn")
     public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse response) {
         return CommonResultTemplate.execute(() ->{

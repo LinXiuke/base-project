@@ -55,3 +55,11 @@ jwt:
     secret_key: biubiubiu
     token_validity: 86400
     token_validity_remember_me: 295200
+
+
+application:
+    async:
+        core-pool-size: 2
+        max-pool-size: 50
+        queue-capacity: 1000
+        thread-name-prefix: ${spring.application.name}-thread-
