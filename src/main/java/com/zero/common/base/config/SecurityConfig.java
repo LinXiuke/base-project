@@ -56,10 +56,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                //  yml配置的context-path: /base  不能加上
-                .antMatchers("/user/signIn").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/configuration/ui").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/configuration/ui").permitAll()
+                .antMatchers("/configuration/security").permitAll()
+                //  yml配置的context-path: /base  不能加上
+                .antMatchers("/user/signIn").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .exceptionHandling()
