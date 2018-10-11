@@ -21,7 +21,7 @@ import javax.validation.Valid;
 
 @Api(value = "用户接口")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
