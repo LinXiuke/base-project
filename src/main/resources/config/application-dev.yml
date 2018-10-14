@@ -63,3 +63,16 @@ application:
         max-pool-size: 50
         queue-capacity: 1000
         thread-name-prefix: ${spring.application.name}-thread-
+
+
+xxl:
+    job:
+        accessToken: ''
+        admin:
+            addresses: 127.0.0.1:8001
+        executor:
+            appname: ${spring.application.name}-dev
+            ip: ''
+            logpath: ${logging.path}/xxl-job/jobhandler
+            logretentiondays: -1
+            port: 1050

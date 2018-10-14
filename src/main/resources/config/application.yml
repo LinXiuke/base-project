@@ -31,3 +31,9 @@ server:
 security:
     basic:
         enabled: false
+
+
+logging:
+    level:
+        com.xxl.job.executor.service.info: info
+    path: /data/logs/${spring.application.name}
