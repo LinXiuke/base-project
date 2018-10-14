@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 
 
-@JobHandler(value="CommonJobHandler")
+@JobHandler(value="syncJobHandler")
 @Component
-public class CommonJobHandler extends IJobHandler {
+public class SyncJobHandler extends IJobHandler {
 
 	@Override
 	public ReturnT<String> execute(String param) throws Exception {

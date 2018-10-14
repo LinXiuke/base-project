@@ -69,10 +69,10 @@ xxl:
     job:
         accessToken: ''
         admin:
-            addresses: 127.0.0.1:8001
+            addresses: http://localhost:8080/xxl-job-admin
         executor:
-            appname: ${spring.application.name}-dev
+            appname: ${spring.application.name}
             ip: ''
             logpath: ${logging.path}/xxl-job/jobhandler
             logretentiondays: -1
-            port: 1050
+            port: 9946
