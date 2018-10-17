@@ -3,6 +3,7 @@ package com.zero.project.biz.manager;
 import com.zero.common.base.result.CommonException;
 import com.zero.common.security.AuthUser;
 import com.zero.common.security.JWTConfigurer;
+import com.zero.common.security.SecurityUtils;
 import com.zero.common.security.TokenProvider;
 import com.zero.project.dal.primary.jpa.dao.UserDAO;
 import com.zero.project.dal.primary.jpa.entity.User;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,5 +63,14 @@ public class UserManager {
         String token = tokenProvider.createToken(authentication, form.getRememberMe());
 //        response.setHeader(JWTConfigurer.AUTHORIZATION, token);
         return token;
+    }
+
+
+    @Transactional("primaryTransactionManager")
+    public void updatePassword(String password) {
+        Long userId = SecurityUtils.getCurrentUser().getUserId();
+        User user = userDAO.findOne(userId);
+        user.setPassword(password);
+        userDAO.save(user);
     }
 }

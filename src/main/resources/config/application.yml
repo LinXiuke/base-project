@@ -3,6 +3,9 @@ spring:
             name: base-project
     profiles:
         active: dev
+    thymeleaf:
+            mode: HTML5
+            cache: false
     jpa:
             database: MYSQL
             database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -12,6 +15,7 @@ spring:
                     implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
                     physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
             open-in-view: false
+            show-sql: true
             properties:
                 #主键生成策略
                 hibernate.id.new_generator_mappings: true
@@ -21,7 +25,8 @@ spring:
                 hibernate.cache.use_query_cache: false
                 #统计信息
                 hibernate.generate_statistics: true
-            show-sql: true
+                //sql格式化
+                hibernate.format_sql: true
 
 server:
     port: 8001

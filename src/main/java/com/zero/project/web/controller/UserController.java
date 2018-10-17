@@ -9,12 +9,14 @@ import com.zero.project.web.form.SignInForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * @Description:
@@ -45,5 +47,17 @@ public class UserController {
     @GetMapping("/userInfo")
     public CommonResult getUserInfo() {
         return CommonResultTemplate.execute(SecurityUtils::getCurrentUser);
+    }
+
+    @PostMapping("/updatePassword")
+    public CommonResult updatePassword(@RequestBody Map<String, String> params) {
+        return CommonResultTemplate.execute(() -> {
+            String password = params.get("password");
+            if (StringUtil.isBlank(password)) {
+                throw new CommonException("密码不能为空");
+            }
+            userManager.updatePassword(password);
+            return null;
+        });
     }
 }
