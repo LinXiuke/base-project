@@ -21,11 +21,11 @@ spring:
                 hibernate.cache.use_query_cache: false
                 #统计信息
                 hibernate.generate_statistics: true
-            show-sql: false
+            show-sql: true
 
 server:
     port: 8001
-    #url前缀
+    #接口前缀
     context-path: /base
 
 security:
@@ -36,4 +36,5 @@ security:
 logging:
     level:
         com.xxl.job.executor.service.info: info
+        com.zoro: info
     path: /data/logs/${spring.application.name}

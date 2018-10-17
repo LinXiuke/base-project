@@ -19,7 +19,7 @@ public class LoginAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException e) throws IOException, ServletException {
+                         AuthenticationException e) throws IOException {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);

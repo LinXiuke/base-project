@@ -8,6 +8,7 @@ import com.zero.project.biz.manager.UserManager;
 import com.zero.project.web.form.SignInForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
  * @Description:
  */
 
+@Slf4j
 @Api(value = "用户接口")
 @RestController
 @RequestMapping("/api/user")
@@ -30,6 +32,7 @@ public class UserController {
     @ApiOperation(value = "登录")
     @PostMapping("/signIn")
     public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse response) {
+        log.info("登录");
         return CommonResultTemplate.execute(() ->{
             if (result.hasErrors()) {
                 throw new CommonException(result.getAllErrors().get(0).getDefaultMessage());
