@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Description: controller层调用日志拦截器
- * @Author: LXK
+ * @Author: Leonard
  * @Date: 2018/10/16
  */
 

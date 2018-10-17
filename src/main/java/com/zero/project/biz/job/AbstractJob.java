@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 /**
  * @Description: 抽象job
- * @Author: LXK
+ * @Author: Leonard
  * @Date: 2018/10/14
  */
 public abstract class AbstractJob {
