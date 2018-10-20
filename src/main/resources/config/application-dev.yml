@@ -52,13 +52,16 @@ spring:
 
     mail:
         default-encoding: UTF-8
-        host: stmp.163.com
+        host: smtp.163.com
         username: xxx@163.com
         #邮箱客户端授权密码，非邮箱登录密码
         password: xxx
         port: 25
-        #协议
-        protocol: stmp
+        stmp:
+            auth: true
+            starttls:
+                enable: true
+                required: true
 
 
 

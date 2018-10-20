@@ -10,20 +10,7 @@
 	</contextListener>
 	<shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
 
-	<appender name="DEFAULT_APPENDER"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_PATH}/default.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/default.%d{yyyy-MM-dd}.log
-			</fileNamePattern>
-			<maxHistory>90</maxHistory>
-		</rollingPolicy>
-		<encoder>
-			<charset>utf-8</charset>
-			<Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
-		</encoder>
-	</appender>
-
+    <!--xxl-job-->
 	<appender name="XXL_JOB_APPENDER"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_PATH}/xxl-job.log</file>
@@ -38,6 +25,7 @@
 		</encoder>
 	</appender>
 
+    <!--error-->
 	<appender name="ERROR_APPENDER"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_PATH}/error.log</file>
@@ -57,11 +45,27 @@
 		</filter>
 	</appender>
 
+    <!--default-->
+    <appender name="DEFAULT_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/default.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/default.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!--controller-->
 	<appender name="API_LOGGER_APPENDER"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_PATH}/api.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/api-digest.%d{yyyy-MM-dd}.log
+			<fileNamePattern>${LOG_PATH}/api.%d{yyyy-MM-dd}.log
 			</fileNamePattern>
 			<maxHistory>90</maxHistory>
 		</rollingPolicy>
@@ -70,6 +74,21 @@
 			<Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
 		</encoder>
 	</appender>
+
+    <!--service & manager-->
+    <appender name="SERVICE_LOGGER_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/service.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
 
 	<logger name="com.zero" additivity="true">
 		<appender-ref ref="DEFAULT_APPENDER" />
@@ -82,6 +101,10 @@
 		<appender-ref ref="API_LOGGER_APPENDER" />
 		<appender-ref ref="ERROR_APPENDER" />
 	</logger>
+    <logger name="SERVICE_LOGGER" level="info" additivity="false">
+        <appender-ref ref="SERVICE_LOGGER_APPENDER" />
+        <appender-ref ref="ERROR_APPENDER" />
+    </logger>
 
 	<logger name="javax.activation" level="WARN" />
 	<logger name="javax.mail" level="WARN" />

@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description: controller层调用日志拦截器
+ * @Description: 业务层调用日志拦截器
  * @Author: Leonard
  * @Date: 2018/10/16
  */
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class ControllerInterceptor {
+public class ServiceInterceptor {
 
-    private final static Logger CONTROLLER_LOGGER = LoggerFactory.getLogger("CONTROLLER_LOGGER");
+    private final static Logger SERVICE_LOGGER = LoggerFactory.getLogger("SERVICE_LOGGER");
 
-    @Around("bean(*Controller) && execution(* com.zero.project.web.controller..*.*(..))")
+    @Around("execution(* com.zero.project.biz.manager.*.*(..)) && execution(* com.zero.project.biz.service.*.*(..))")
     public Object invoke(ProceedingJoinPoint invocation) throws Throwable {
         long startTime = System.currentTimeMillis();
 
@@ -29,7 +29,7 @@ public class ControllerInterceptor {
         Object result;
         boolean success = true;
 
-        CONTROLLER_LOGGER.info("接口: {}.{}", className, method);
+        SERVICE_LOGGER.info("class: {}.{}", className, method);
 
         try {
             result = invocation.proceed();
@@ -38,8 +38,8 @@ public class ControllerInterceptor {
             throw  e;
         } finally {
             long time = System.currentTimeMillis() - startTime;
-            CONTROLLER_LOGGER.info("结果: {}", success ? "success" : "failed");
-            CONTROLLER_LOGGER.info("运行时间: {}豪秒", time);
+            SERVICE_LOGGER.info("结果: {}", success ? "success" : "failed");
+            SERVICE_LOGGER.info("运行时间: {}豪秒", time);
         }
 
         return result;
