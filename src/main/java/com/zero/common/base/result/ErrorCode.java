@@ -17,6 +17,7 @@ public enum ErrorCode {
     NOT_ACCESSIBLE("403", "不可访问"),
     METHOD_NOT_ALLOWED("405", "方法不被允许"),
     UNSUPPORTED_MEDIA_TYPE("415", "不支持当前媒体类型"),
+    INTERNAL_SERVER_ERROR("500", "Internal Server Error"),
 
 
     TOKEN_LOSE_EFFICACY("1001","您的登录令牌已失效，请重新登录"),

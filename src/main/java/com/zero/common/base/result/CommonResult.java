@@ -11,8 +11,19 @@ import java.io.Serializable;
 @Data
 public class CommonResult implements Serializable {
 
+    /**
+     * 0000为返回正常， 其它code均为请求错误
+     */
     private String code;
+
+    /**
+     * 返回数据
+     */
     private Object data;
+
+    /**
+     * 错误信息
+     */
     private String message;
 
     public CommonResult() {

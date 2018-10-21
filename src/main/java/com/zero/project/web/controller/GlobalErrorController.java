@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +24,10 @@ import java.io.PrintWriter;
 /**
  * 全局异常处理
  */
-@Controller
+//@RestController
 public class GlobalErrorController implements ErrorController {
 
-	@RequestMapping("/error")
-	@ResponseBody
+//	@RequestMapping("/error")
 	public static void error(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -39,6 +39,10 @@ public class GlobalErrorController implements ErrorController {
 		if (null == error) {
 			error = (Throwable) request.getAttribute(WebAttributes.ACCESS_DENIED_403);
 		}
+
+        if (null == error) {
+            error = (Throwable) request.getAttribute("500 Internal Server Error");
+        }
 
 		CommonResult result;
 		if (error instanceof JwtException) {

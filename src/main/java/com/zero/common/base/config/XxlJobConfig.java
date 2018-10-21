@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * xxl job 配置类
  */
-@Configuration
-@ComponentScan(basePackages = "com.xxl.job.executor.service.jobhandler")
+//@Configuration
+//@ComponentScan(basePackages = "com.xxl.job.executor.service.jobhandler")
 public class XxlJobConfig {
     private Logger logger = LoggerFactory.getLogger(XxlJobConfig.class);
 
