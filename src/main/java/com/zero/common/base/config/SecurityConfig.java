@@ -61,18 +61,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // swagger start
-//                .antMatchers("/swagger-ui.html").permitAll()
-//                .antMatchers("/swagger-resources/configuration/ui").permitAll()
-//                .antMatchers("/images/**").permitAll()
-//                .antMatchers("/webjars/**").permitAll()
-//                .antMatchers("/v2/api-docs").permitAll()
-//                .antMatchers("/configuration/ui").permitAll()
-//                .antMatchers("/configuration/security").permitAll()
+                .antMatchers("/swagger-resources").permitAll()
+                .antMatchers("/swagger-resources/configuration/ui").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/configuration/ui").permitAll()
+                .antMatchers("/configuration/security").permitAll()
                 // swagger end
                 //  yml配置的context-path: /base  不能加上
-                // mmp swagger页面出来了但是接口文档出不来 给所有接口都加上api前缀 技术不够操作来凑
-                .antMatchers("/api/user/signIn").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/user/signIn").permitAll()
+                .antMatchers("/**").authenticated()
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())

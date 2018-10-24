@@ -41,7 +41,7 @@ public class Swagger2Config  {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.zero.project.web.controller"))
-                .paths(PathSelectors.ant("/api/**"))
+                .paths(PathSelectors.ant("/**"))
                 .build()
                 .globalOperationParameters(parameterList);
     }

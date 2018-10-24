@@ -57,7 +57,7 @@ spring:
         #邮箱客户端授权密码，非邮箱登录密码
         password: xxx
         port: 25
-        stmp:
+        smtp:
             auth: true
             starttls:
                 enable: true

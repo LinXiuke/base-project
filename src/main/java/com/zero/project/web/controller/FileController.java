@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @RestController
-@RequestMapping("/api/file")
+@RequestMapping("/file")
 public class FileController {
 
     @Autowired
