@@ -20,7 +20,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactorySecondary", transactionManagerRef =
         "transactionManagerSecondary", basePackages = {
-        "com.zero.project.dal.secondary.jpa.dao"})
+        "com.zero.project.dal.secondary.dao"})
 public class SecondaryRepositoryConfig {
 
     @Autowired
@@ -38,7 +38,7 @@ public class SecondaryRepositoryConfig {
     @Bean(name = "entityManagerFactorySecondary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary(EntityManagerFactoryBuilder builder) {
         return builder.dataSource(secondaryDS).properties(getVendorProperties(secondaryDS))
-                .packages("com.zero.project.dal.secondary.jpa.entity").persistenceUnit
+                .packages("com.zero.project.dal.secondary.entity").persistenceUnit
                         ("secondaryPersistenceUnit").build();
     }
 
