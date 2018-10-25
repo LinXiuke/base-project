@@ -1,5 +1,7 @@
 package com.zero.project.biz.manager;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zero.common.base.result.CommonException;
 import com.zero.common.security.SecurityUtils;
 import com.zero.common.security.TokenProvider;
@@ -7,6 +9,9 @@ import com.zero.project.dal.primary.dao.UserDAO;
 import com.zero.project.dal.primary.entity.User;
 import com.zero.project.web.form.SignInForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Description: 用户登录退出
@@ -60,6 +68,21 @@ public class UserManager {
         String token = tokenProvider.createToken(authentication, form.getRememberMe());
 //        response.setHeader(JWTConfigurer.AUTHORIZATION, token);
         return token;
+    }
+
+
+    public Object getUserInfo() {
+
+//        PageHelper.startPage(1, 10);
+//        List<User> list = userDAO.findAll();
+//        PageInfo<User> page = new PageInfo<>(list);
+
+//        Page<Integer> page = new PageImpl<>(list, new PageRequest(0, 10), list.size());
+
+//        return page;
+
+        return SecurityUtils.getCurrentUser();
+
     }
 
 

@@ -17,4 +17,6 @@ public class SignInForm {
     private String password;
 
     private Boolean rememberMe = Boolean.FALSE;
+
+    private Integer test;
 }

@@ -35,7 +35,7 @@ public class UserController {
     @PostMapping("/signIn")
     public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse response) {
         log.info("登录");
-        return CommonResultTemplate.execute(() ->{
+        return CommonResultTemplate.execute(() -> {
             if (result.hasErrors()) {
                 throw new CommonException(result.getAllErrors().get(0).getDefaultMessage());
             }
@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/userInfo")
     public CommonResult getUserInfo() {
-        return CommonResultTemplate.execute(SecurityUtils::getCurrentUser);
+        return CommonResultTemplate.execute(() -> userManager.getUserInfo());
     }
 
     @PostMapping("/updatePassword")
