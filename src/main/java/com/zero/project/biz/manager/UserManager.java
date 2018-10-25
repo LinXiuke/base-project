@@ -7,6 +7,7 @@ import com.zero.common.security.SecurityUtils;
 import com.zero.common.security.TokenProvider;
 import com.zero.project.dal.primary.dao.UserDAO;
 import com.zero.project.dal.primary.entity.User;
+import com.zero.project.dal.primary.mapper.UserMapper;
 import com.zero.project.web.form.SignInForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,6 +34,9 @@ public class UserManager {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -74,7 +78,7 @@ public class UserManager {
     public Object getUserInfo() {
 
 //        PageHelper.startPage(1, 10);
-//        List<User> list = userDAO.findAll();
+//        List<User> list = userMapper.selectAll();
 //        PageInfo<User> page = new PageInfo<>(list);
 
 //        Page<Integer> page = new PageImpl<>(list, new PageRequest(0, 10), list.size());
