@@ -1,4 +1,4 @@
-package com.zero.baseproject;
+package pers.hogwarts.baseproject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
