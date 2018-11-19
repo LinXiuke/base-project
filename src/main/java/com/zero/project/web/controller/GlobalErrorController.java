@@ -24,10 +24,10 @@ import java.io.PrintWriter;
 /**
  * 全局异常处理
  */
-//@RestController
+@RestController
 public class GlobalErrorController implements ErrorController {
 
-//	@RequestMapping("/error")
+	@RequestMapping("/error")
 	public static void error(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

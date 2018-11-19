@@ -35,7 +35,7 @@ public class CommonResultTemplate {
         return result;
     }
 
-    public interface Callback {
-        Object execute();
+    public interface Callback<T> {
+        T execute();
     }
 }

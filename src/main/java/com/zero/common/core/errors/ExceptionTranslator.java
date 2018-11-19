@@ -3,12 +3,15 @@ package com.zero.common.core.errors;
 import com.zero.common.base.result.CommonException;
 import com.zero.common.base.result.CommonResult;
 import com.zero.common.base.result.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * @Description: 全局异常处理
  */
+@Slf4j
 @ControllerAdvice
 public class ExceptionTranslator {
 
@@ -36,6 +40,23 @@ public class ExceptionTranslator {
 
 //        return processFieldErrors(fieldErrors);
 
+        log.error("参数错误", e);
+        return new CommonResult(ErrorCode.REQUEST_ERROR);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonResult processServletRequestParameterError(MissingServletRequestParameterException e) {
+        log.error("参数错误", e);
+        return new CommonResult(ErrorCode.REQUEST_ERROR);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonResult processHttpMessageNotReadableError(HttpMessageNotReadableException e) {
+        log.error("参数错误", e);
         return new CommonResult(ErrorCode.REQUEST_ERROR);
     }
 

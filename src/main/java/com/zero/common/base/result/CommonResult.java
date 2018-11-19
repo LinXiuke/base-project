@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 @Data
-public class CommonResult implements Serializable {
+public class CommonResult<T> implements Serializable {
 
     /**
      * 0000为返回正常， 其它code均为请求错误
@@ -20,7 +20,7 @@ public class CommonResult implements Serializable {
     /**
      * 返回数据
      */
-    private Object data;
+    private T data;
 
     /**
      * 错误信息
@@ -37,7 +37,7 @@ public class CommonResult implements Serializable {
         this.message = "";
     }
 
-    public CommonResult(Object data) {
+    public CommonResult(T data) {
         this();
         this.data = data;
     }
