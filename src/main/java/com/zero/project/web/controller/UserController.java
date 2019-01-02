@@ -33,7 +33,8 @@ public class UserController {
 
     @ApiOperation(value = "登录")
     @PostMapping("/signIn")
-    public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse response) {
+    public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse
+            response) {
         log.info("登录");
         return CommonResultTemplate.execute(() -> {
             if (result.hasErrors()) {

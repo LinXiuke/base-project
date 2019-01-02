@@ -16,10 +16,10 @@ public class ApplicationProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
-	private final Async async = new Async();
+    private final Async async = new Async();
 
-	@Data
-	public static class Async {
+    @Data
+    public static class Async {
 
         private int corePoolSize = 2;
         private int maxPoolSize = 50;

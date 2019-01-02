@@ -14,42 +14,44 @@ import java.util.concurrent.Executors;
  */
 public abstract class AbstractJob {
 
-	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private ExecutorService executorService = Executors.newFixedThreadPool(20);
+    private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-	/**
-	 * 异步执行
-	 * @param jobName
-	 */
-	public void asyncRun(String jobName) {
-		XxlJobLogger.log("begin：" + jobName);
+    /**
+     * 异步执行
+     *
+     * @param jobName
+     */
+    public void asyncRun(String jobName) {
+        XxlJobLogger.log("begin：" + jobName);
 
-		try {
-			executorService.execute(() -> execute());
-		} catch (Exception e) {
-			XxlJobLogger.log("fail：" + jobName, e);
-		} finally {
-			XxlJobLogger.log("end：" + jobName);
-		}
-	}
+        try {
+            executorService.execute(() -> execute());
+        } catch (Exception e) {
+            XxlJobLogger.log("fail：" + jobName, e);
+        } finally {
+            XxlJobLogger.log("end：" + jobName);
+        }
+    }
 
-	/**
-	 * 同步执行
-	 * @param jobName
-	 */
-	public void syncRun(String jobName) {
-		XxlJobLogger.log("begin：" + jobName);
+    /**
+     * 同步执行
+     *
+     * @param jobName
+     */
+    public void syncRun(String jobName) {
+        XxlJobLogger.log("begin：" + jobName);
 
-		try {
-			execute();
-		} catch (Exception e) {
-			XxlJobLogger.log("fail：" + jobName, e);
-		} finally {
-			XxlJobLogger.log("end：" + jobName);
-		}
-	}
+        try {
+            execute();
+        } catch (Exception e) {
+            XxlJobLogger.log("fail：" + jobName, e);
+        } finally {
+            XxlJobLogger.log("end：" + jobName);
+        }
+    }
 
-	protected abstract void execute();
+    protected abstract void execute();
 
 }

@@ -47,7 +47,7 @@ public class JWTFilter extends GenericFilterBean {
 
     }
 
-    private String getTokenForHeader(HttpServletRequest request){
+    private String getTokenForHeader(HttpServletRequest request) {
         //获取header里的token
         String token = request.getHeader(JWTConfigurer.AUTHORIZATION);
         if (StringUtils.hasText(token)) {

@@ -35,7 +35,7 @@ public class ControllerInterceptor {
             result = invocation.proceed();
         } catch (Throwable e) {
             success = false;
-            throw  e;
+            throw e;
         } finally {
             long time = System.currentTimeMillis() - startTime;
             CONTROLLER_LOGGER.info("结果: {}", success ? "success" : "failed");

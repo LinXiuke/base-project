@@ -45,13 +45,13 @@ public class RedisConfig {
      */
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager redisCacheManager =  new RedisCacheManager(redisTemplate);
+        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
         redisCacheManager.setDefaultExpiration(86400);
         return redisCacheManager;
     }
 
     /**
-     *  注解@Cache key生成规则
+     * 注解@Cache key生成规则
      */
     @Bean
     public KeyGenerator keyGenerator() {

@@ -17,7 +17,8 @@ import org.springframework.util.Assert;
 
 
 @Component
-public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider, InitializingBean, MessageSourceAware {
+public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider, InitializingBean,
+        MessageSourceAware {
 
     protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
@@ -36,22 +37,22 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     }
 
 
-	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-		User user = userDAO.findByUsername((String)token.getPrincipal());
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+        User user = userDAO.findByUsername((String) token.getPrincipal());
 
-		AuthUser details = new AuthUser();
-		details.setOpenId(user.getOpenId());
-		details.setUserId(user.getId());
-		details.setUsername((String)token.getPrincipal());
-		token.setDetails(details);
-		return authentication;
-	}
+        AuthUser details = new AuthUser();
+        details.setOpenId(user.getOpenId());
+        details.setUserId(user.getId());
+        details.setUsername((String) token.getPrincipal());
+        token.setDetails(details);
+        return authentication;
+    }
 
-	@Override
-	public boolean supports(Class<?> authentication) {
-		 return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
-	}
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+    }
 
 }

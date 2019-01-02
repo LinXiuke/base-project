@@ -20,8 +20,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR("500", "Internal Server Error"),
 
 
-    TOKEN_LOSE_EFFICACY("1001","您的登录令牌已失效，请重新登录"),
-    ;
+    TOKEN_LOSE_EFFICACY("1001", "您的登录令牌已失效，请重新登录"),;
 
     private String code;
 

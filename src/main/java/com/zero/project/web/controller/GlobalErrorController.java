@@ -27,45 +27,45 @@ import java.io.PrintWriter;
 @RestController
 public class GlobalErrorController implements ErrorController {
 
-	@RequestMapping("/error")
-	public static void error(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
+    @RequestMapping("/error")
+    public static void error(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-		Throwable error = (Throwable) request.getAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE);
-		if (null == error) {
-			error = (Throwable) request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-		}
-		if (null == error) {
-			error = (Throwable) request.getAttribute(WebAttributes.ACCESS_DENIED_403);
-		}
+        Throwable error = (Throwable) request.getAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE);
+        if (null == error) {
+            error = (Throwable) request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        }
+        if (null == error) {
+            error = (Throwable) request.getAttribute(WebAttributes.ACCESS_DENIED_403);
+        }
 
         if (null == error) {
             error = (Throwable) request.getAttribute("500 Internal Server Error");
         }
 
-		CommonResult result;
-		if (error instanceof JwtException) {
-			result = new CommonResult(ErrorCode.UNAUTHORIZED);
-		} else if (error instanceof AuthenticationException || error instanceof AccessDeniedException) {
-			result = new CommonResult(ErrorCode.NOT_ACCESSIBLE);
-		} else if (error instanceof MethodArgumentNotValidException) {
-			result = new CommonResult(ErrorCode.REQUEST_ERROR);
-		} else if (error instanceof CommonException) {
-			result = new CommonResult(((CommonException) error).getErrorCode());
-		} else {
-			result = new CommonResult(ErrorCode.SERVER_ERROR);
-		}
+        CommonResult result;
+        if (error instanceof JwtException) {
+            result = new CommonResult(ErrorCode.UNAUTHORIZED);
+        } else if (error instanceof AuthenticationException || error instanceof AccessDeniedException) {
+            result = new CommonResult(ErrorCode.NOT_ACCESSIBLE);
+        } else if (error instanceof MethodArgumentNotValidException) {
+            result = new CommonResult(ErrorCode.REQUEST_ERROR);
+        } else if (error instanceof CommonException) {
+            result = new CommonResult(((CommonException) error).getErrorCode());
+        } else {
+            result = new CommonResult(ErrorCode.SERVER_ERROR);
+        }
 
-		PrintWriter out = response.getWriter();
-		out.print(JSON.toJSONString(result));
-		out.flush();
-		out.close();
-	}
+        PrintWriter out = response.getWriter();
+        out.print(JSON.toJSONString(result));
+        out.flush();
+        out.close();
+    }
 
-	@Override
-	public String getErrorPath() {
-		return "/error";
-	}
+    @Override
+    public String getErrorPath() {
+        return "/error";
+    }
 
 }

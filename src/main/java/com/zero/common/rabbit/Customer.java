@@ -16,11 +16,11 @@ public class Customer {
 
     @RabbitListener(queues = "queue1")
     public void consumeMessage1(String message) {
-        System.out.println("queue1接收消息："+ message);
+        System.out.println("queue1接收消息：" + message);
     }
 
     @RabbitListener(queues = "queue2")
     public void consumeMessage2(String message) {
-        System.out.println("queue2接收消息："+ message);
+        System.out.println("queue2接收消息：" + message);
     }
 }

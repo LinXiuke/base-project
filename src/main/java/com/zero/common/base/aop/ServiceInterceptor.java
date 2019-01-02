@@ -35,7 +35,7 @@ public class ServiceInterceptor {
             result = invocation.proceed();
         } catch (Throwable e) {
             success = false;
-            throw  e;
+            throw e;
         } finally {
             long time = System.currentTimeMillis() - startTime;
             SERVICE_LOGGER.info("结果: {}", success ? "success" : "failed");

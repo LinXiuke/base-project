@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 /**
- *
  * @author yanlv
  * @version 0.1 : DataSourceConfig v0.1 2017/9/16 上午12:02 yanlv Exp $
  */
@@ -18,9 +17,9 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-	@Primary
+    @Primary
     @Bean("primaryDataSource")
-	@Qualifier("primaryDataSource")
+    @Qualifier("primaryDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.primary")
     public DataSource primaryDS() {
         return DataSourceBuilder.create().build();

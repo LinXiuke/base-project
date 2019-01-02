@@ -2,48 +2,48 @@
 
 <configuration scan="true">
 
-	<include resource="org/springframework/boot/logging/logback/base.xml" />
-	<property name="LOG_PATH" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}" />
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="LOG_PATH" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}"/>
 
-	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-		<resetJUL>true</resetJUL>
-	</contextListener>
-	<shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
     <!--xxl-job-->
-	<appender name="XXL_JOB_APPENDER"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_PATH}/xxl-job.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/xxl-job.%d{yyyy-MM-dd}.log
-			</fileNamePattern>
-			<maxHistory>90</maxHistory>
-		</rollingPolicy>
-		<encoder>
-			<charset>utf-8</charset>
-			<Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
-		</encoder>
-	</appender>
+    <appender name="XXL_JOB_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/xxl-job.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/xxl-job.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
 
     <!--error-->
-	<appender name="ERROR_APPENDER"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_PATH}/error.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log
-			</fileNamePattern>
-			<maxHistory>90</maxHistory>
-		</rollingPolicy>
-		<encoder>
-			<charset>utf-8</charset>
-			<Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
-		</encoder>
-		<filter class="ch.qos.logback.classic.filter.LevelFilter">
-			<level>ERROR</level>
-			<onMatch>ACCEPT</onMatch>
-			<onMismatch>DENY</onMismatch>
-		</filter>
-	</appender>
+    <appender name="ERROR_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
 
     <!--default-->
     <appender name="DEFAULT_APPENDER"
@@ -61,19 +61,19 @@
     </appender>
 
     <!--controller-->
-	<appender name="API_LOGGER_APPENDER"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_PATH}/api.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/api.%d{yyyy-MM-dd}.log
-			</fileNamePattern>
-			<maxHistory>90</maxHistory>
-		</rollingPolicy>
-		<encoder>
-			<charset>utf-8</charset>
-			<Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
-		</encoder>
-	</appender>
+    <appender name="API_LOGGER_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/api.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d %-5level %logger{0}: %msg%n</Pattern>
+        </encoder>
+    </appender>
 
     <!--service & manager-->
     <appender name="SERVICE_LOGGER_APPENDER"
@@ -90,49 +90,49 @@
         </encoder>
     </appender>
 
-	<logger name="com.zero" additivity="true">
-		<appender-ref ref="DEFAULT_APPENDER" />
-		<appender-ref ref="ERROR_APPENDER" />
-	</logger>
-	<logger name="com.xxl.job.executor.service.info" level="WARN" additivity="false">
+    <logger name="com.zero" additivity="true">
+        <appender-ref ref="DEFAULT_APPENDER"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+    </logger>
+    <logger name="com.xxl.job.executor.service.info" level="WARN" additivity="false">
         <appender-ref ref="XXL_JOB_APPENDER"/>
     </logger>
-	<logger name="CONTROLLER_LOGGER" level="info" additivity="false">
-		<appender-ref ref="API_LOGGER_APPENDER" />
-		<appender-ref ref="ERROR_APPENDER" />
-	</logger>
+    <logger name="CONTROLLER_LOGGER" level="info" additivity="false">
+        <appender-ref ref="API_LOGGER_APPENDER"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+    </logger>
     <logger name="SERVICE_LOGGER" level="info" additivity="false">
-        <appender-ref ref="SERVICE_LOGGER_APPENDER" />
-        <appender-ref ref="ERROR_APPENDER" />
+        <appender-ref ref="SERVICE_LOGGER_APPENDER"/>
+        <appender-ref ref="ERROR_APPENDER"/>
     </logger>
 
-	<logger name="javax.activation" level="WARN" />
-	<logger name="javax.mail" level="WARN" />
-	<logger name="javax.xml.bind" level="WARN" />
-	<logger name="ch.qos.logback" level="WARN" />
-	<logger name="com.netflix" level="WARN" />
-	<logger name="com.netflix.discovery" level="INFO" />
-	<logger name="com.sun" level="WARN" />
-	<logger name="com.zaxxer" level="WARN" />
-	<logger name="io.undertow" level="WARN" />
-	<logger name="org.apache" level="WARN" />
-	<logger name="org.apache.catalina.startup.DigesterFactory" level="OFF" />
-	<logger name="org.hibernate.validator" level="WARN" />
-	<logger name="org.hibernate" level="WARN" />
-	<logger name="org.hibernate.ejb.HibernatePersistence" level="OFF" />
-	<logger name="org.springframework" level="WARN" />
-	<logger name="org.springframework.web" level="WARN" />
-	<logger name="org.springframework.security" level="WARN" />
-	<logger name="org.springframework.cache" level="WARN" />
-	<logger name="org.thymeleaf" level="WARN" />
-	<logger name="springfox" level="WARN" />
-	<logger name="sun.rmi" level="WARN" />
-	<logger name="sun.net.www" level="INFO" />
-	<logger name="sun.rmi.transport" level="WARN" />
-	
-	<root level="DEBUG">
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
-	</root>
+    <logger name="javax.activation" level="WARN"/>
+    <logger name="javax.mail" level="WARN"/>
+    <logger name="javax.xml.bind" level="WARN"/>
+    <logger name="ch.qos.logback" level="WARN"/>
+    <logger name="com.netflix" level="WARN"/>
+    <logger name="com.netflix.discovery" level="INFO"/>
+    <logger name="com.sun" level="WARN"/>
+    <logger name="com.zaxxer" level="WARN"/>
+    <logger name="io.undertow" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+    <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
+    <logger name="org.hibernate.validator" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.springframework.web" level="WARN"/>
+    <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.springframework.cache" level="WARN"/>
+    <logger name="org.thymeleaf" level="WARN"/>
+    <logger name="springfox" level="WARN"/>
+    <logger name="sun.rmi" level="WARN"/>
+    <logger name="sun.net.www" level="INFO"/>
+    <logger name="sun.rmi.transport" level="WARN"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
 
 </configuration>

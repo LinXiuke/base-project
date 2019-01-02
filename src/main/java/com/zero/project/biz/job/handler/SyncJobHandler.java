@@ -9,20 +9,19 @@ import com.zero.project.biz.job.AbstractJob;
 import org.springframework.stereotype.Component;
 
 
-
-@JobHandler(value="syncJobHandler")
+@JobHandler(value = "syncJobHandler")
 @Component
 public class SyncJobHandler extends IJobHandler {
 
-	@Override
-	public ReturnT<String> execute(String param) throws Exception {
-		XxlJobLogger.log("XXL-JOB：" + param);
-		
-		AbstractJob job = (AbstractJob) ApplicationContextHelper.getBean(param);
+    @Override
+    public ReturnT<String> execute(String param) throws Exception {
+        XxlJobLogger.log("XXL-JOB：" + param);
 
-		job.syncRun(param);
-		
-		return SUCCESS;
-	}
+        AbstractJob job = (AbstractJob) ApplicationContextHelper.getBean(param);
+
+        job.syncRun(param);
+
+        return SUCCESS;
+    }
 
 }

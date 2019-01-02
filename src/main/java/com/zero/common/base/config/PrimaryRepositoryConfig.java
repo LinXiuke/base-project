@@ -29,7 +29,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", transactionManagerRef =
-		"primaryTransactionManager", basePackages = {"com.zero.project.dal.primary.dao"})
+        "primaryTransactionManager", basePackages = {"com.zero.project.dal.primary.dao"})
 @MapperScan(basePackages = {"com.zero.project.dal.primary.mapper"}, sqlSessionFactoryRef = "primarySqlSessionFactory")
 public class PrimaryRepositoryConfig {
 
