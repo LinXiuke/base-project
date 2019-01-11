@@ -69,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/configuration/security").permitAll()
                 // swagger end
                 //  yml配置的context-path: /base  不能加上
+                .antMatchers("/test/**").permitAll()
                 .antMatchers("/user/signIn").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()

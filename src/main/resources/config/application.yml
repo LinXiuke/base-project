@@ -28,6 +28,11 @@ spring:
                 #sql格式化
                 hibernate.format_sql: true
 
+    messages:
+        basename: i18n/messages
+        cache-seconds: 3600
+        encoding: UTF-8
+
 server:
     port: 8001
     #接口前缀

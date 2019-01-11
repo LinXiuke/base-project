@@ -31,6 +31,7 @@ public class UserController {
     @Autowired
     private UserManager userManager;
 
+
     @ApiOperation(value = "登录")
     @PostMapping("/signIn")
     public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse
