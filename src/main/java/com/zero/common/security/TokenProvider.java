@@ -36,7 +36,7 @@ public class TokenProvider {
         Date validity = rememberMe ? new Date(now + this.tokenValidityRememberMe * 1000) : new Date(now + this
                 .tokenValidity * 1000);
 
-        AuthUser authUser = (AuthUser) authentication.getDetails();
+        AuthUser authUser = (AuthUser) authentication.getPrincipal();
         Long userId = authUser.getUserId();
         String openId = authUser.getOpenId();
         String username = authUser.getUsername();
@@ -70,7 +70,7 @@ public class TokenProvider {
 //            authUser.setUsername(username);
         }
 
-        return new UsernamePasswordAuthenticationToken(jwtUser, token, null);
+        return new UsernamePasswordAuthenticationToken(jwtUser, null, null);
     }
 
 

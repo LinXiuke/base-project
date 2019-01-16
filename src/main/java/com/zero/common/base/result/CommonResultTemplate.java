@@ -18,7 +18,11 @@ public class CommonResultTemplate {
             LoggerFactory.getLogger(Thread.currentThread().getStackTrace()[3].getClassName()).debug("business " +
                     "error", e);
 
-            String message = e.getLocalizedMessage();
+            if (e.getErrorCode() == null) {
+                result.setCode("9999");
+            } else {
+                result.setCode(e.getErrorCode().getCode());
+            }
             result.setMessage(e.getLocalizedMessage());
 
         } catch (Exception e) {
@@ -26,6 +30,7 @@ public class CommonResultTemplate {
             LoggerFactory.getLogger(Thread.currentThread().getStackTrace()[3].getClassName()).debug("business " +
                     "error", e);
 
+            result.setCode("9999");
             result.setMessage(new CommonException(ErrorCode.SERVER_ERROR).getLocalizedMessage());
         }
 

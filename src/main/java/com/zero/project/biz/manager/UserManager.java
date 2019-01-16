@@ -36,9 +36,6 @@ public class UserManager {
     private UserDAO userDAO;
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private TokenProvider tokenProvider;
 
     @Autowired
@@ -50,16 +47,6 @@ public class UserManager {
      */
     public Object signIn(SignInForm form, HttpServletResponse response) {
 
-        User user = userDAO.findByUsername(form.getUsername());
-        if (user == null) {
-            throw new CommonException("用户不存在");
-        }
-
-        if (!form.getPassword().equals(user.getPassword())) {
-            throw new CommonException("用户名或密码不正确");
-        }
-
-
         Authentication authentication;
 
         try {
@@ -68,22 +55,13 @@ public class UserManager {
         } catch (Exception e) {
             throw new CommonException(e.getMessage());
         }
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = tokenProvider.createToken(authentication, form.getRememberMe());
-//        response.setHeader(JWTConfigurer.AUTHORIZATION, token);
-        return token;
+
+        return tokenProvider.createToken(authentication, form.getRememberMe());
     }
 
 
     public Object getUserInfo() {
 
-//        PageHelper.startPage(1, 10);
-//        List<User> list = userMapper.selectAll();
-//        PageInfo<User> page = new PageInfo<>(list);
-
-//        Page<Integer> page = new PageImpl<>(list, new PageRequest(0, 10), list.size());
-
-//        return page;
 
         return SecurityUtils.getCurrentUser();
 
