@@ -1,9 +1,5 @@
 package com.zero.common.security;
 
-import com.zero.common.base.result.CommonException;
-import com.zero.project.dal.primary.dao.UserDAO;
-import com.zero.project.dal.primary.entity.User;
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -24,9 +20,9 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
     protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
-    @Autowired
-    private UserDAO userDAO;
 
+    @Autowired
+    private SecurityUserDetailsService securityUserDetailsService;
 
     @Override
     public void setMessageSource(MessageSource messageSource) {
@@ -42,26 +38,16 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-        User user = userDAO.findByUsername((String) token.getPrincipal());
 
-        if (user == null) {
-            throw new CommonException("用户不存在");
-        }
+        SecurityUserDetails userDetails = (SecurityUserDetails) securityUserDetailsService.loadUserByUsername((String) authentication.getPrincipal());
 
-        if (!StringUtils.equals(user.getPassword(), (String) token.getCredentials())) {
-            throw new CommonException("用户名或密码不正确");
-        }
+        JWTUser jwtUser = new JWTUser();
+        jwtUser.setOpenId(userDetails.getOpenId());
+        jwtUser.setUserId(userDetails.getUserId());
+        jwtUser.setUsername(userDetails.getUsername());
+        token.setDetails(jwtUser);
 
-        AuthUser details = new AuthUser();
-        details.setOpenId(user.getOpenId());
-        details.setUserId(user.getId());
-        details.setUsername((String) token.getPrincipal());
-        token.setDetails(details);
-
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new
-                UsernamePasswordAuthenticationToken(details, null, null);
-
-        return usernamePasswordAuthenticationToken;
+        return new UsernamePasswordAuthenticationToken(jwtUser, null, userDetails.getAuthorities());
     }
 
     @Override

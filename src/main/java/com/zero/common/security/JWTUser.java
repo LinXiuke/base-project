@@ -16,6 +16,9 @@ public class JWTUser implements Principal {
 
     private String openId;
 
+    public JWTUser() {
+    }
+
     @Override
     public String getName() {
         return username;
