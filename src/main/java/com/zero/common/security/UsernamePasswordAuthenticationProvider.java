@@ -1,5 +1,6 @@
 package com.zero.common.security;
 
+import com.zero.common.base.result.CommonException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -40,6 +41,10 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
         SecurityUserDetails userDetails = (SecurityUserDetails) securityUserDetailsService.loadUserByUsername((String) authentication.getPrincipal());
+
+        if (!userDetails.getPassword().equals(authentication.getCredentials())) {
+            throw new CommonException("密码错误");
+        }
 
         JWTUser jwtUser = new JWTUser();
         jwtUser.setOpenId(userDetails.getOpenId());

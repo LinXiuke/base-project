@@ -1,7 +1,5 @@
 package com.zero.common.security;
 
-import com.zero.common.base.result.ErrorCode;
-import com.zero.common.base.result.CommonException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -36,9 +34,6 @@ public class JWTFilter extends GenericFilterBean {
         if (StringUtils.hasText(token)) {
             if (tokenProvider.validateToken(token)) {
                 Authentication authentication = tokenProvider.getAuthentication(token);
-//                if (authentication.getPrincipal() instanceof JWTUser) {
-//                    System.out.println(((JWTUser)authentication.getPrincipal()).getUsername());
-//                }
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
