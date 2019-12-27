@@ -11,7 +11,7 @@ spring:
             driver-class-name: com.mysql.jdbc.Driver
             url: jdbc:mysql://localhost:3306/base1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
             username: root
-            password:
+            password: root123
             test-on-borrow: true
             validation-interval: 30
             validation-query: SELECT 1
@@ -27,7 +27,7 @@ spring:
             driver-class-name: com.mysql.jdbc.Driver
             url: jdbc:mysql://localhost:3306/base2?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
             username: root
-            password:
+            password: root123
             test-on-borrow: true
             validation-interval: 30
             validation-query: SELECT 1

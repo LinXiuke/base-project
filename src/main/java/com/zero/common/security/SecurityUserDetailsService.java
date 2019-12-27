@@ -30,9 +30,6 @@ public class SecurityUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRoleDAO userRoleDAO;
 
-    @Autowired
-    private RoleDAO roleDAO;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -42,15 +39,13 @@ public class SecurityUserDetailsService implements UserDetailsService {
         }
 
         List<UserRole> userRoles = userRoleDAO.findAllByUserId(user.getId());
-        SecurityUserDetails securityUser = new SecurityUserDetails(user.getId(), user.getOpenId(), username, user.getPassword(), getUserAuthorities(userRoles));
-
-        return securityUser;
+        return new SecurityUserDetails(user.getId(), user.getOpenId(), username, user.getPassword(), getUserAuthorities(userRoles));
     }
 
     private List<GrantedAuthority> getUserAuthorities(List<UserRole> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (UserRole userRole : userRoles) {
-            authorities.add(new SimpleGrantedAuthority(userRole.getRoleCode()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userRole.getRoleCode()));
         }
         return authorities;
     }

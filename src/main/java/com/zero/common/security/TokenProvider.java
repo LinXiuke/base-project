@@ -6,10 +6,16 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Description:
@@ -36,7 +42,7 @@ public class TokenProvider {
         Date validity = rememberMe ? new Date(now + this.tokenValidityRememberMe * 1000) : new Date(now + this
                 .tokenValidity * 1000);
 
-        AuthUser authUser = (AuthUser) authentication.getPrincipal();
+        JWTUser authUser = (JWTUser) authentication.getPrincipal();
         Long userId = authUser.getUserId();
         String openId = authUser.getOpenId();
         String username = authUser.getUsername();
@@ -45,6 +51,7 @@ public class TokenProvider {
                 .claim("userId", userId.toString())
                 .claim("openId", openId)
                 .claim("username", username)
+                .claim("roles", getRoleFromAuthorities(authentication.getAuthorities()))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .setExpiration(validity)
                 .compact();
@@ -64,11 +71,9 @@ public class TokenProvider {
         String openId = claims.get("openId", String.class);
         Long userId = Long.valueOf(claims.get("userId").toString());
         String username = claims.get("username", String.class);
-        if (!StringUtils.isEmpty(openId) && !openId.trim().equals("")) {
-            jwtUser = JWTUser.builder().username(username).openId(openId).userId(userId).build();
-        }
+        jwtUser = new JWTUser(userId, username, openId);
 
-        return new UsernamePasswordAuthenticationToken(jwtUser, null, null);
+        return new UsernamePasswordAuthenticationToken(jwtUser, null, getAuthoritiesFromRole(claims.get("roles", String.class)));
     }
 
 
@@ -82,5 +87,26 @@ public class TokenProvider {
             return false;
         }
         return true;
+    }
+
+
+    private String getRoleFromAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        List<String> roles = new ArrayList<>();
+        for (GrantedAuthority authority : authorities) {
+            if (authority instanceof SimpleGrantedAuthority) {
+                roles.add(authority.getAuthority());
+            }
+        }
+        return String.join(",", roles);
+    }
+
+
+    private List<SimpleGrantedAuthority> getAuthoritiesFromRole(String roles) {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        String[] roleArray = roles.split(",");
+        for (String role : roleArray) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
     }
 }

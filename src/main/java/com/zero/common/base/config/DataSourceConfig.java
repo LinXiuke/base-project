@@ -9,11 +9,6 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-/**
- * @author yanlv
- * @version 0.1 : DataSourceConfig v0.1 2017/9/16 上午12:02 yanlv Exp $
- */
-
 @Configuration
 public class DataSourceConfig {
 

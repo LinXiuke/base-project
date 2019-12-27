@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,18 +36,19 @@ public class UserController {
 
     @ApiOperation(value = "登录")
     @PostMapping("/signIn")
-    public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result, HttpServletResponse
-            response) {
+    public CommonResult siginIn(@Valid @RequestBody SignInForm form, BindingResult result) {
         log.info("登录");
         return CommonResultTemplate.execute(() -> {
             if (result.hasErrors()) {
                 throw new CommonException(result.getAllErrors().get(0).getDefaultMessage());
             }
 
-            return userManager.signIn(form, response);
+            return userManager.signIn(form);
         });
     }
 
+
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("/userInfo")
     public CommonResult getUserInfo() {
         return CommonResultTemplate.execute(() -> userManager.getUserInfo());
