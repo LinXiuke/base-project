@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-@ComponentScan
 @EnableJpaAuditing
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class Application {

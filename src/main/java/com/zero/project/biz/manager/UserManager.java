@@ -41,12 +41,12 @@ public class UserManager {
 
         Authentication authentication;
 
-        try {
+//        try {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
                     (form.getUsername(), form.getPassword()));
-        } catch (Exception e) {
-            throw new CommonException(e.getMessage());
-        }
+//        } catch (Exception e) {
+//            throw new CommonException(e.getMessage());
+//        }
 
         return tokenProvider.createToken(authentication, form.getRememberMe());
     }

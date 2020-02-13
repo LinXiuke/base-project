@@ -48,7 +48,7 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/userInfo")
     public CommonResult getUserInfo() {
         return CommonResultTemplate.execute(() -> userManager.getUserInfo());

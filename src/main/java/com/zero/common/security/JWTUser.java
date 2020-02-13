@@ -8,7 +8,7 @@ import java.security.Principal;
 
 @Data
 //@Builder
-public class JWTUser implements Principal {
+public class JWTUser {
 
     private Long userId;
 
@@ -25,7 +25,7 @@ public class JWTUser implements Principal {
         this.openId = openId;
     }
 
-    @Override
+//    @Override
     public String getName() {
         return username;
     }
